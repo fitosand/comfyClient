@@ -80,6 +80,13 @@ class TopOptions extends React.Component <AppProps2, StateVars>
             >  
                Payments
           </button>
+          <button
+            value="1"
+            className="Square"
+            // onClick={() => this.state.show:false}
+            >  
+               Reservations
+          </button>
           
         </div>
         {!this.state.showB ? null : <Buildings bldgsList2={this.props.bldgsList} />}

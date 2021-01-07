@@ -6,9 +6,11 @@ interface LogProps {
   email: string;
   password: string;
   confPassword: string;
+  handleEmailChange: (e: any) => void;
+  handlePassChange: (e: any) => void;
 }
 
-interface LogStatus {
+interface LogStates {
   // changeForm: () => void;
   // logUser: () => void;
   // regUser: () => void;
@@ -17,15 +19,17 @@ interface LogStatus {
   // handlePasswordChange: () => void;
   SignUp: boolean;
   handleChange: () => void;
+  email: string;
+  password: string;
 }
 
-export default class Login extends React.Component<LogProps, LogStatus> {
+export default class Login extends React.Component<LogProps, LogStates> {
   constructor(props: LogProps) {
     super(props);
     this.state = {
       SignUp: true,
-      // email: '',
-      // password: '',
+      email: "",
+      password: "",
       // confPassword: '',
       handleChange(): void{}
     };
@@ -49,9 +53,9 @@ export default class Login extends React.Component<LogProps, LogStatus> {
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
-    // this.setState({
-    //   email: e.target.value
-    //   })
+    this.setState({
+      // email: e.target.value
+      })
     console.log(this.props.email)
   }
   
@@ -69,7 +73,8 @@ export default class Login extends React.Component<LogProps, LogStatus> {
         </div>
         <div className="formWrapper">
           <div className="form">
-            <span className="logo">App name</span>
+            <span className="logo">🏢</span>
+            <div className="logo">Comfy</div>
             <form
               onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
@@ -83,7 +88,14 @@ export default class Login extends React.Component<LogProps, LogStatus> {
             >
               <div>
                 <input
-                  value={this.props.email} onChange={e => this.handleChange(e)}
+                  // value={this.props.email} onChange={e => this.handleChange(e)}
+                  onChange={(event) => {
+                    const { target } = event;
+                    if (target) {
+                      //console.log(target.value);
+                      this.props.handleEmailChange(target.value);
+                    }
+                  }}
                   ref="email"
                   type="text"
                   name="email"
@@ -91,7 +103,14 @@ export default class Login extends React.Component<LogProps, LogStatus> {
                 />
               </div>
               <div>
-                <input type="password" name="password" placeholder="password" />
+                <input type="password" name="password" placeholder="password"
+                onChange={(event) => {
+                  const { target } = event;
+                  if (target) {
+                    //console.log(target.value);
+                    this.props.handlePassChange(target.value);
+                  }}}
+                 />
               </div>
               {this.state.SignUp ? (
                 <div>

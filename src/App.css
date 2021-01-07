@@ -289,6 +289,27 @@ a{
   background-color: white;
 }
 
+.horCard1{
+  display:block;
+  align-items: center;
+  margin:10px;
+  width: 650px;
+  height:100px;
+  /* padding:10px 20px; */
+  background-color: white;
+}
+
+.horCard2{
+  display:block;
+  align-items: center;
+  justify-content: center;
+  margin:10px;
+  width: 650px;
+  /* height:100px; */
+  /* padding:10px 20px; */
+  background-color: white;
+}
+
 .tag{
   display: flex;
   justify-content: center;
@@ -305,13 +326,38 @@ a{
 .maintDesc{
   font-size:14px;
   padding: 0 20px;
-  width: 200px;
+  /* width: 200px; */
 }
 
 .cardCols{
   display:flex;
   /* justify-content: flex-start; */
   align-items: center;
+}
+
+.cardColsAdd{
+  display:block;
+  /* justify-content: flex-start; */
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width:650px;
+  font-size:48px; 
+  border: 0.5px dashed #d9d9d9;
+}
+
+.center:hover{
+  transition:0.3s;
+  /* background-color: antiquewhite; */
+  cursor:pointer;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+
 }
 
 .cardColStart{
@@ -334,10 +380,99 @@ a{
 
 .addBtn{
   font-size:24px;
-  padding:15px 30px;
+  padding: 10px;
   /* background-color:gray; */
   color:white;
   border:none;
+}
+
+.brokenButton{
+  background-color: #f4511e;
+  opacity:0.8;
+  color:white;
+  padding: 8px 16px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:360px;
+}
+.fixedButton:active, .brokenButton:active {
+  border-style: outset;
+}
+
+.brokenButton:hover, .fixedButton:hover{
+  opacity:1;
+  transition:0.3s;
+  /* background-color: antiquewhite; */
+  cursor:pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+}
+
+.fixedButton{
+  background-color: #52c41a;
+  opacity:0.6;
+  color:white;
+  padding: 8px 24px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:360px;
+
+}
+
+
+/* Add form */
+.cardColsAdd{
+  display: flex;
+  justify-content: space-evenly;
+}
+.AddForm {
+  display: flex; 
+  /* grid-column: 3; */
+  padding: 20px 25px 20px 10px;
+  display: flex;
+  width: -webkit-fill-available;
+}
+
+.formInput{
+  border:none;
+  border-bottom:0.5px solid gray;
+  /* padding:2px 4px; */
+  font-size:14px;
+  width:100%;
+  margin: 0 10px 0 0;
+  border-radius:0;
+  outline: none;
+}
+
+.formInput1{
+  width: 20%;
+  border:none;
+  border-bottom:0.5px solid gray;
+  /* padding:2px 4px; */
+  font-size:14px;
+  /* width:100%; */
+  margin: 0 10px;
+  border-radius: 0;
+  outline: none;
+}
+
+.addNewBtn{
+  font-size: 14px;
+  color:black;
+  /* font-size:24px; */
+  padding:15px 30px;
+  /* background-color:gray; */
+  border:none;
+  
+
+}
+
+.addNewBtn:hover{
+  background-color: aquamarine;
+  transition: 0.3s;
+  cursor:pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
 }
 
 .horCard:hover{

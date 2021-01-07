@@ -35,7 +35,9 @@ interface LogStates {
   token: string,
   email:string,
   password:string,
-  confPassword:string
+  confPassword:string,
+  handleEmailChange: (e: any) => void;
+  handlePassChange: (e: any) => void;
 };
 
 
@@ -50,6 +52,8 @@ class App extends React.Component < {},LogStates>
       email: '',
       password: '',
       confPassword: '',
+      handleEmailChange: (e) => this.setState({ email: e }),
+      handlePassChange: (e) => this.setState({ password: e }),
     };
   }
   
@@ -61,60 +65,27 @@ class App extends React.Component < {},LogStates>
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "email": "demo@email.com",
-          "password": "123"
+          "email": this.state.email,
+          "password": this.state.password
         })
       })
         // .then(res => res.json())
         .then(result => {
+          console.log(this.state.password)
+          if(!result.ok){ throw result }
           console.log(result);
           console.log(localStorage.getItem('token'));
           // console.log(this.state.token);
           this.setState({
-            loggedIn: !this.state.loggedIn,
+            loggedIn: !this.state.loggedIn, //redirects here!!!
             
           });
         })
-        //THIS WORKS !!!
-    // this.setState({
-    //   loggedIn: !this.state.loggedIn
-    // })
-    
-    // console.log('logging in')
+        .catch((error) => {
+            console.log("Error loading data", error);
+          });
+        
   }
-
-  // componentDidMount() {
-    
-  //   const baseUrl = 'http://localhost:3000/api/posts';
-  //   // fetch(baseUrl, {
-  //   //         method: 'POST',
-  //   //         body: JSON.stringify({
-  //   //           "email": "demo@email.com",
-  //   //           "password": "123"
-  //   //       }),
-  //   //         //body: JSON.stringify({user: {username: email, password}}),
-  //   //         headers: new Headers({
-  //   //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRhOTk3Y2UzN2MxYTdmMjdjYmVmNWUiLCJpYXQiOjE2MDgxNjYzMTJ9.6UhiOPiPIuH4iIGg4aNGPyt7jcB7-t0EWe-Wa7rDvhI'
-  //   //         })
-  //   //     })
-
-  //   fetch(baseUrl) 
-  //     // .then((response) => (response.json())
-  //     .then(res => res.text())          // convert to plain text
-  //     .then(text => console.log(text))
-
-  //     // .then((response) => (response.json())
-      
-  //     //   .then((responseData) => {
-          
-  //     //     console.log(responseData);
-  //     //     //this.setState({ cards: responseData as CardData[] })
-  //     //   })
-  //       .catch((error) => {
-  //         console.log("Error loading data", error);
-  //       });
-
-  // }
   
   render(){
     return (
@@ -126,10 +97,13 @@ class App extends React.Component < {},LogStates>
         {
         !this.state.loggedIn ? 
         <Login 
+        handleEmailChange={this.state.handleEmailChange}
+          handlePassChange={this.state.handlePassChange}
         StatUpdate={this.StatUpdate}
         email={this.state.email}
         password={this.state.password}
         confPassword={this.state.confPassword}
+        
           
         /> :
         <div> 
@@ -139,6 +113,8 @@ class App extends React.Component < {},LogStates>
           <RPanel />
         </div>
         }
+        <p>{this.state.email}</p>
+        <p>{this.state.password}</p>
 
       </div>
     );
