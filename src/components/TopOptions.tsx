@@ -74,15 +74,17 @@ class TopOptions extends React.Component <AppProps2, StateVars>
                Maintenance
           </button>
           <button
+            disabled={true}
             value="1"
-            className="Square"
+            className="SquareDis"
             // onClick={() => this.state.show:false}
             >  
                Payments
           </button>
           <button
+            disabled={true}
             value="1"
-            className="Square"
+            className="SquareDis"
             // onClick={() => this.state.show:false}
             >  
                Reservations

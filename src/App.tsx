@@ -33,6 +33,7 @@ interface LogProps {
 interface LogStates {
   loggedIn:boolean,
   token: string,
+  name:string
   email:string,
   password:string,
   confPassword:string,
@@ -49,6 +50,7 @@ class App extends React.Component < {},LogStates>
     this.state = {
       loggedIn: false,  //true is in, false shows login
       token: '',
+      name:'',
       email: '',
       password: '',
       confPassword: '',
@@ -71,10 +73,10 @@ class App extends React.Component < {},LogStates>
       })
         // .then(res => res.json())
         .then(result => {
-          console.log(this.state.password)
-          if(!result.ok){ throw result }
-          console.log(result);
-          console.log(localStorage.getItem('token'));
+          // console.log(this.state.password)
+          // if(!result.ok){ throw result }
+          // console.log(result);
+          // console.log(localStorage.getItem('token'));
           // console.log(this.state.token);
           this.setState({
             loggedIn: !this.state.loggedIn, //redirects here!!!
@@ -85,6 +87,37 @@ class App extends React.Component < {},LogStates>
             console.log("Error loading data", error);
           });
         
+  }
+
+  RegUser = () => {
+    console.log('registering...');
+    fetch('http://localhost:3000/api/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "email": this.state.email,
+          "password": this.state.password
+        })
+      })
+        // .then(res => res.json())
+        .then(result => {
+          //console.log(this.state.password)
+          //if(!result.ok){ throw result }
+          // console.log(result);
+          // console.log(localStorage.getItem('token'));
+          // console.log(this.state.token);
+          window.confirm("User Created!") &&
+          this.setState({
+            loggedIn: !this.state.loggedIn, //redirects here!!!
+            
+          });
+        })
+        .catch((error) => {
+            console.log("Error loading data", error);
+          });
+
   }
   
   render(){
@@ -98,8 +131,9 @@ class App extends React.Component < {},LogStates>
         !this.state.loggedIn ? 
         <Login 
         handleEmailChange={this.state.handleEmailChange}
-          handlePassChange={this.state.handlePassChange}
+        handlePassChange={this.state.handlePassChange}
         StatUpdate={this.StatUpdate}
+        RegUser={this.RegUser}
         email={this.state.email}
         password={this.state.password}
         confPassword={this.state.confPassword}

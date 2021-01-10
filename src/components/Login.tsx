@@ -3,6 +3,7 @@ import "../Login.css";
 
 interface LogProps {
   StatUpdate: () => void;
+  RegUser: () => void;
   email: string;
   password: string;
   confPassword: string;
@@ -21,6 +22,7 @@ interface LogStates {
   handleChange: () => void;
   email: string;
   password: string;
+  regForm: boolean
 }
 
 export default class Login extends React.Component<LogProps, LogStates> {
@@ -31,12 +33,14 @@ export default class Login extends React.Component<LogProps, LogStates> {
       email: "",
       password: "",
       // confPassword: '',
-      handleChange(): void{}
+      handleChange(): void{},
+      regForm: true
     };
   }
 
   changeForm = () => {
     this.setState({ SignUp: !this.state.SignUp });
+    this.setState({ regForm: !this.state.regForm});
     // alert(this.state.SignUp);
   };
 
@@ -48,7 +52,8 @@ export default class Login extends React.Component<LogProps, LogStates> {
   };
 
   regUser = () => {
-    alert("regging you in...");
+    this.props.RegUser();
+    
   };
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -79,8 +84,8 @@ export default class Login extends React.Component<LogProps, LogStates> {
               onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
               console.log('submitted...');
-              
-              this.logUser();
+              {this.state.regForm ? this.regUser() : this.logUser()}
+              ;
               }}
               // onSubmit={() => {
               //   this.logUser();
@@ -151,6 +156,7 @@ export default class Login extends React.Component<LogProps, LogStates> {
                 </div>
               )}
             </form>
+            <p className="wrongCred">*wrong credentials, please try again!</p>
           </div>
         </div>
       </div>

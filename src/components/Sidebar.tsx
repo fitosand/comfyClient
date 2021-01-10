@@ -54,7 +54,8 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
       <button className="SidebarItem"
     onClick = { () => {
       this.props.StatUpdate();
-      alert(this.props.LogStatus)}
+      //alert(this.props.LogStatus)
+    }
     }
       // onClick = { () => alert(this.props.LogStatus) }
         // onClick={(e) => 

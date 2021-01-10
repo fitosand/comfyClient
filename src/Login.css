@@ -35,6 +35,10 @@ body {
   flex: 50%;
 }
 
+.wrongCred{
+  color:tomato;
+}
+
 .logo {
   font-size: 48px;
   font-weight: 900;
