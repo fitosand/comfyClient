@@ -7,6 +7,8 @@ import Maint from './Maint';
 interface AppProps2{
   // value: any,
   bldgsList:string[]
+  userID:string,
+  superUser:boolean,
   
 }
 
@@ -47,9 +49,10 @@ class TopOptions extends React.Component <AppProps2, StateVars>
     return (
       <div className="CategoryBoard">
         <div className="Squares">
+          {this.props.superUser? 
           <button
             value="1"
-            className="Square"
+            className="CenterSquare"
             
             onClick={(e) => 
               this.setState({ showB:true },
@@ -60,9 +63,12 @@ class TopOptions extends React.Component <AppProps2, StateVars>
             >  
                Buildings
           </button>
+          :
+          ''
+          }
           <button
             value="1"
-            className="Square"
+            className="CenterSquare"
             onClick={() => 
               this.setState({ showM:true },
                 () => {
@@ -89,11 +95,19 @@ class TopOptions extends React.Component <AppProps2, StateVars>
             >  
                Reservations
           </button>
+          <button
+            disabled={false}
+            value="1"
+            className="SquareDis"
+            // onClick={() => this.state.show:false}
+            >  
+               Subscriptions
+          </button>
           
         </div>
         {!this.state.showB ? null : <Buildings bldgsList2={this.props.bldgsList} />}
         {/* {!this.state.showM ? null : <Maint maintList={MaintList} />} */}
-        {!this.state.showM ? null : <Maint />}
+        {!this.state.showM ? null : <Maint superUser={this.props.superUser} userID={this.props.userID} />}
       
       </div>
     );

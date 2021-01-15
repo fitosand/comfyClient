@@ -84,8 +84,15 @@ input:hover,
 }
 
 .signUpButton {
-  background-color: #391085;
+  background-color: #8a79f7;
   color: white;
+}
+
+.signUpButton:hover{
+  background-color: #5c5a92;
+  color: #fff;
+  transition: 0.3s;
+  cursor:pointer;
 }
 
 .buttonLink {

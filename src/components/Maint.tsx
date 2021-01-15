@@ -22,6 +22,8 @@ interface AppProps4{
     // value: any,
     // maintList:string[]
     // maintList:any
+    userID:string,
+    superUser:boolean,
  
     
 }
@@ -33,6 +35,7 @@ interface AppStates{
     //     date:string
 
     // },
+    numItems:number,
     idNum:any,
     unit:string,
     issue:string,
@@ -56,6 +59,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
             //     date:''
         
             // },
+            numItems:0,
             idNum:'',
             unit:'',
             issue:'',
@@ -72,40 +76,73 @@ class Maint extends React.Component<AppProps4, AppStates> {
     }
 
     
-    //DISPLAY MAINTANENANCE ITEMS
+    //DISPLAY ALL MAINTANENANCE ITEMS (admin mode)
     componentDidMount(){
-        fetch('http://localhost:3000/api/posts',{
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'auth-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY0YWZiMjg4ZGRiMDAzZGVhMWRiMjQiLCJpYXQiOjE2MDk4NzQ4MzR9.BYKDCqybOyjN3jDkfx_r-P5BkMQ1Du0pHx7tGDZ8P5g"
-        },
-        
-        })
-        .then((response) => (response.json())
-        .then((responseData) => {
-            // console.log(responseData);
-            this.setState({ maintItems: responseData })
-            console.log(responseData);
-             
-        })
-        .catch((error) => {
-            console.log("Error loading data", error);
-        }));
+        console.log(this.props.superUser);
+        console.log(this.props.userID);
+
+        //***If not superUser, show specific
+        {
+            !this.props.superUser ?
+            fetch('http://localhost:3000/api/posts/'+this.props.userID,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': ''+localStorage.getItem('auth-token')
+            }
+            })
+            .then((response) => (response.json())
+            .then((responseData) => {
+                //console.log(responseData);
+                this.setState({ maintItems: responseData })
+                this.setState({numItems: this.state.maintItems.length})
+                console.log(this.state.maintItems.length);
+                //console.log(this.props.userID);
+                
+            })
+            .catch((error) => {
+                console.log("Error loading data", error);
+            }))
+            :
+
+            //***IF SUPERUSER IS TRUE (ADMIN), SHOW ALL***
+            fetch('http://localhost:3000/api/posts/',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': ''+localStorage.getItem('auth-token')
+            }
+            })
+            .then((response) => (response.json())
+            .then((responseData) => {
+                //console.log(responseData);
+                this.setState({ maintItems: responseData })
+                this.setState({numItems: this.state.maintItems.length})
+                console.log(this.state.maintItems.length);
+                // console.log(this.state.maintItems);
+                //console.log(this.props.userID);
+                
+            })
+            .catch((error) => {
+                console.log("Error loading data", error);
+            }));
+
+        }
 
     }
 
-    //ADD MAINTENANCE ITEMS
+    //ADD MAINTENANCE ITEMS (new post)
     async maintUpdate(){
         await fetch('http://localhost:3000/api/posts',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'auth-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY0YWZiMjg4ZGRiMDAzZGVhMWRiMjQiLCJpYXQiOjE2MDk4NzQ4MzR9.BYKDCqybOyjN3jDkfx_r-P5BkMQ1Du0pHx7tGDZ8P5g"
+            'auth-token': ''+localStorage.getItem('auth-token')
         },
         body: JSON.stringify({
-          "unit": this.state.unit,
-          "issue": this.state.issue
+            "userID": this.props.userID,
+            "unit": this.state.unit,
+            "issue": this.state.issue
         })
         
         })
@@ -129,12 +166,12 @@ class Maint extends React.Component<AppProps4, AppStates> {
         //ask user for confirmation
         window.confirm("Are you sure you wish to change the status?") &&
         // fetch if confirmed...
-        console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
+        //console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
         fetch('http://localhost:3000/api/posts/'+this.state.idNum._id,{
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            'auth-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY0YWZiMjg4ZGRiMDAzZGVhMWRiMjQiLCJpYXQiOjE2MDk4NzQ4MzR9.BYKDCqybOyjN3jDkfx_r-P5BkMQ1Du0pHx7tGDZ8P5g"
+            'auth-token': ''+localStorage.getItem('auth-token')
         },
         body: JSON.stringify({
           "status": this.state.fixed ? "fixed" : "broken" 
@@ -160,12 +197,13 @@ class Maint extends React.Component<AppProps4, AppStates> {
         //ask user for confirmation
         window.confirm("Are you sure you want to delete this post?") &&
         // fetch if confirmed...
-        console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
+        //console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
         fetch('http://localhost:3000/api/posts/'+this.state.idNum._id,{
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'auth-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY0YWZiMjg4ZGRiMDAzZGVhMWRiMjQiLCJpYXQiOjE2MDk4NzQ4MzR9.BYKDCqybOyjN3jDkfx_r-P5BkMQ1Du0pHx7tGDZ8P5g"
+            'auth-token': ''+localStorage.getItem('auth-token')
+            
         },
         
         })
@@ -183,14 +221,11 @@ class Maint extends React.Component<AppProps4, AppStates> {
 
     }
 
-
-
-
     render(){
         return (
             
             <div className="CategoryBoard">
-                <h3>Maintenance Requests</h3>
+                <h3>Maintenance Requests ({this.state.numItems})</h3>
                 
                 <ul className="horCards">
                     {/* THIS IS THE ADD BUTTON */}  
@@ -254,7 +289,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
                 </li> 
                 
                 {/* ITERATE OVER LIST OF ITEMS HERE */}
-                {this.state.maintItems.map(( {_id, unit, issue, date, status} ) => {
+                {this.state.maintItems.map(( {resident,_id, unit, issue, date, status} ) => {
                 return <li className="horCard" key={_id}>
                         <div className="cardCols">
                            
@@ -264,6 +299,8 @@ class Maint extends React.Component<AppProps4, AppStates> {
                                 <div><b>Issue:</b> {issue}</div>
                                 <div><b>Time:</b> {date}</div>
                             </div>
+
+                            {this.props.superUser? //if user is admin, show buttons
                             <div className="cardColEnd">
                                 <span className="addBtn">
                                     {/* <ClockCircleTwoTone twoToneColor="#eb2f96" /> */}
@@ -293,6 +330,9 @@ class Maint extends React.Component<AppProps4, AppStates> {
                                     }}
                                 className="delButton"></button>
                             </div>
+                            :
+                            ''
+                            }
                             
                         </div>
                     </li>
@@ -300,7 +340,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
                     })}
                 
                 
-                <li className="horCard">
+                {/* <li className="horCard">
                     <div className="cardCols">
                     <img src={'https://aosa.org/wp-content/uploads/2019/04/image-placeholder-350x350.png'} alt="boohoo" className="ImgMaint"/>
                         <div className="maintDesc">
@@ -309,14 +349,14 @@ class Maint extends React.Component<AppProps4, AppStates> {
                             <div><b>Time:</b> 12/08/2020, 05:04:32 PM</div>
                         </div>
                         <div className="cardColEnd">
-                            <span className="addBtn">
+                            <span className="addBtn"> */}
                                 {/* <CheckCircleTwoTone twoToneColor="#52c41a" /> */}
-                                <button className="fixedButton">fixed</button>
+                                {/* <button className="fixedButton">fixed</button>
                             </span>
                         </div>
                         
                     </div>
-                </li> 
+                </li>  */}
                       
                 </ul>
                

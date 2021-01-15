@@ -16,7 +16,7 @@ class RPanel extends React.Component < LogProps2,LogStates2>  {
 
     render(){
         return(
-        <div className="rPanel">
+        <div >
             graph here
 
         </div>

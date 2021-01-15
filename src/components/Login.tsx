@@ -3,12 +3,15 @@ import "../Login.css";
 
 interface LogProps {
   StatUpdate: () => void;
-  RegUser: () => void;
+  StatUpdate2: () => void;
   email: string;
   password: string;
   confPassword: string;
   handleEmailChange: (e: any) => void;
   handlePassChange: (e: any) => void;
+  loggedIn:boolean;
+  showLError:boolean,
+  showRError:boolean,
 }
 
 interface LogStates {
@@ -22,7 +25,8 @@ interface LogStates {
   handleChange: () => void;
   email: string;
   password: string;
-  regForm: boolean
+  regForm: boolean,
+  loggedIn:boolean,
 }
 
 export default class Login extends React.Component<LogProps, LogStates> {
@@ -34,7 +38,8 @@ export default class Login extends React.Component<LogProps, LogStates> {
       password: "",
       // confPassword: '',
       handleChange(): void{},
-      regForm: true
+      regForm: true,
+      loggedIn:false,
     };
   }
 
@@ -47,22 +52,15 @@ export default class Login extends React.Component<LogProps, LogStates> {
   logUser = () => {
     
     this.props.StatUpdate();
-    console.log("logging you in...");
+    // console.log("logging you in...");
 
   };
 
-  regUser = () => {
-    this.props.RegUser();
+  RegUser = () => {
+    this.props.StatUpdate2();
+    console.log("registering user!");
     
   };
-
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    this.setState({
-      // email: e.target.value
-      })
-    console.log(this.props.email)
-  }
   
   
 
@@ -83,8 +81,8 @@ export default class Login extends React.Component<LogProps, LogStates> {
             <form
               onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
-              console.log('submitted...');
-              {this.state.regForm ? this.regUser() : this.logUser()}
+              console.log('form submitted...');
+              {this.state.regForm ? this.RegUser() : this.logUser()}
               ;
               }}
               // onSubmit={() => {
@@ -98,6 +96,7 @@ export default class Login extends React.Component<LogProps, LogStates> {
                     const { target } = event;
                     if (target) {
                       //console.log(target.value);
+                      this.setState({email: target.value})
                       this.props.handleEmailChange(target.value);
                     }
                   }}
@@ -112,6 +111,7 @@ export default class Login extends React.Component<LogProps, LogStates> {
                 onChange={(event) => {
                   const { target } = event;
                   if (target) {
+                    this.setState({password: target.value})
                     //console.log(target.value);
                     this.props.handlePassChange(target.value);
                   }}}
@@ -156,7 +156,8 @@ export default class Login extends React.Component<LogProps, LogStates> {
                 </div>
               )}
             </form>
-            <p className="wrongCred">*wrong credentials, please try again!</p>
+            <p className="wrongCred">{this.props.showRError ? '*Email already exists!' : ''}</p>
+            <p className="wrongCred">{this.props.showLError ? '*wrong credentials, please try again!' : ''}</p>
           </div>
         </div>
       </div>

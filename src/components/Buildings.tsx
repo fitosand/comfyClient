@@ -1,5 +1,10 @@
 import React from "react";
 import Units from './Units';
+import { 
+  FaDoorClosed,
+  FaMoneyCheckAlt,
+  FaWrench
+} from "react-icons/fa";
 import 'antd/dist/antd.css';
 import { Tag, Divider, Button, Alert, Card } from 'antd';
 import {
@@ -25,30 +30,36 @@ class Buildings extends React.Component<AppProps3> {
     return (
       <div className="CategoryBoard">
         <h3>Buildings</h3>
-        {/* <div className="Squares">
-          <div>
-              <button style={{fontSize:"48px"}}  className="Square">+</button>
-          </div> 
-                <div className="Square">
-                    <Card title="Villa I" extra={<a href="#">More</a>} >
-                        <p> <HomeTwoTone /> 23</p>
-                        <p><CreditCardTwoTone /> 3 due</p>
-                        <p><ToolTwoTone /> 5</p>
-                    </Card>
-                </div>
-        </div> */}
           <ul className="Squares">  
-          <li><button style={{fontSize:"48px"}}  className="Square">+</button></li> 
-            {this.props.bldgsList2.map((d) => (
-              <li className="Square">
-              {/* //<button onClick={(e) => alert({d})} className="Square">{d}</button> */}
-              <Card title={d} >
-                        <p> <HomeTwoTone /> 23</p>
-                        <p><CreditCardTwoTone /> 3 due </p>
-                        <p><ToolTwoTone /> 5</p>
-                    </Card>
-              </li>
-            ))}
+            <li>
+              <button style={{fontSize:"48px"}}  className="CenterSquare">+</button>
+            </li> 
+          {this.props.bldgsList2.map((d) => (
+            <li className="cardPro">
+              <div >
+                  {/* <div className="cardPro-header">
+                      <img src="./images/profile.jpeg" alt="Profile Image" className="profile-img"/>
+                  </div> */}
+                  <div className="cardPro-body">
+                      <p className="full-name">{d}</p>
+                      <p className="username">337 South New York Ave </p>
+                      {/* <p className="desc">337 South New York Ave </p>  */}
+                  </div>
+                  <div className="cardPro-footer">
+                      <div className="col vr">
+                          <p className="stat"><a href="" className="count">8</a><br></br>units</p>
+                      </div>
+                      <div className="col vr">
+                      <p className="stat"
+                        ><a href="" className="count">$2.7K</a><br></br>due</p>
+                      </div>
+                      <div className="col">
+                      <p className="stat"><a href="" className="count">3</a><br></br>fix</p>
+                      </div>
+                  </div>
+              </div>
+            </li>
+          ))}
           
         </ul>
           

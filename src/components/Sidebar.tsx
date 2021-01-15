@@ -7,6 +7,8 @@ import * as ioIcons from "react-icons/io5";
 interface LogProps2 {
   LogStatus:boolean,
   StatUpdate:() => void;
+  StatUpdate3:() => void;
+  superUser:boolean
 };
 
 interface LogStates2 {
@@ -31,7 +33,7 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
         </div>
         <div className="userInfo">
         <div className="SidebarItemText">Pablo Mejia</div>
-          <p style={{ color: "lightgray" }}>admin</p>
+        <p style={{ color: '#00dcb8' }}>{!this.props.superUser? 'resident' : 'admin' }</p>
         </div>
       </div>
       <div className="SidebarItem">
@@ -53,7 +55,8 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
       </div> */}
       <button className="SidebarItem"
     onClick = { () => {
-      this.props.StatUpdate();
+      
+      this.props.StatUpdate3();
       //alert(this.props.LogStatus)
     }
     }
