@@ -1,0 +1,26 @@
+.Calendar {
+    /* width:90%; */
+    padding:20px;
+    margin: 20px;
+    font-size: 12px !important;
+    border-radius:10px;
+    /* border:0.5px solid lightgray; */
+    background-color: white;
+    box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+}
+
+.fc .fc-media-screen .fc-direction-ltr .fc-theme-standard{
+    margin: 20px 40px;
+    font-size: 12px;
+}
+
+.fc-header{
+    font-size:10px;
+    width:100% !important;
+}
+
+.reserveTypeTitle{
+    font-size:20px;
+    padding:10px 0;
+    font-weight: bold;
+}

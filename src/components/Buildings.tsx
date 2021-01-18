@@ -1,10 +1,5 @@
 import React from "react";
 import Units from './Units';
-import { 
-  FaDoorClosed,
-  FaMoneyCheckAlt,
-  FaWrench
-} from "react-icons/fa";
 import 'antd/dist/antd.css';
 import { Tag, Divider, Button, Alert, Card } from 'antd';
 import {

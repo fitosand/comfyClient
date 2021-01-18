@@ -1,5 +1,5 @@
 import React from "react";
-import * as FaIcons from "react-icons/fa";
+// import * as FaIcons from "react-icons/fa";
 import * as AiIcons from 'react-icons/ai'
 import avatar from '../Assets/avatar.png';
 import * as ioIcons from "react-icons/io5";

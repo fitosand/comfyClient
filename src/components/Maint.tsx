@@ -331,7 +331,21 @@ class Maint extends React.Component<AppProps4, AppStates> {
                                 className="delButton"></button>
                             </div>
                             :
-                            ''
+                            //show status + disabled button
+                            <div className="cardColEnd">
+                                <span className="addBtn">
+                                    {/* <ClockCircleTwoTone twoToneColor="#eb2f96" /> */}
+                                    <button disabled={true}
+                                        
+                                        className=
+                                        {status === 'fixed' 
+                                        ? "closedTicket" : "openTicket" 
+                                        }
+                                    >
+                                        {/* {status} */}
+                                    </button>
+                                </span>
+                            </div>
                             }
                             
                         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Buildings from './Buildings';
 import Maint from './Maint';
-
-
+import Subs from './Subs';
+import Reserve from './Calendar';
+import '../Calendar.css'
 
 interface AppProps2{
   // value: any,
@@ -14,24 +15,11 @@ interface AppProps2{
 
 type StateVars = {
   showB:boolean,
-  showM:boolean
+  showM:boolean,
+  showS:boolean,
+  showR:boolean
 }
 
-let MaintList : 
-    { 
-      unit:number, 
-      issue:string,
-      date: any
-    
-    }[] = 
-    [
-      {"unit": 1, "issue": "fix floor", "date" : "12/08/20"},
-      {"unit": 2, "issue": "broken roof", "date" : "12/08/20"},
-      {"unit": 3, "issue": "floor needs repair", "date" : "12/08/20"}
-    ];
-
-//fetch user's maintenance items
-// let MaintList: string[] = ["fix faucet", "fix floor", "fix ceiling"];
 
 class TopOptions extends React.Component <AppProps2, StateVars>
 {
@@ -39,7 +27,9 @@ class TopOptions extends React.Component <AppProps2, StateVars>
     super(props);
     this.state = {
       showB: false,
-      showM:false
+      showM:false,
+      showS:false,
+      showR:false
     };
     // console.log(this.state.showB);
   }
@@ -49,7 +39,7 @@ class TopOptions extends React.Component <AppProps2, StateVars>
     return (
       <div className="CategoryBoard">
         <div className="Squares">
-          {this.props.superUser? 
+          {this.props.superUser? //if admin
           <button
             value="1"
             className="CenterSquare"
@@ -57,7 +47,10 @@ class TopOptions extends React.Component <AppProps2, StateVars>
             onClick={(e) => 
               this.setState({ showB:true },
                 () => {
-                  this.setState({showM:false});
+                  this.setState({
+                    showM:false,
+                    showS:false
+                  });
                 }
              )} 
             >  
@@ -67,12 +60,31 @@ class TopOptions extends React.Component <AppProps2, StateVars>
           ''
           }
           <button
+            disabled={false}
+            value="1"
+            className="CenterSquare"
+            onClick={(e) => 
+              this.setState({ showS:true },
+                () => {
+                  this.setState({
+                    showM:false,
+                    showB:false
+                  });
+                }
+             )} 
+            >  
+               Subscriptions
+          </button>
+          <button
             value="1"
             className="CenterSquare"
             onClick={() => 
               this.setState({ showM:true },
                 () => {
-                  this.setState({showB:false});
+                  this.setState({
+                    showB:false,
+                    showS:false
+                  });
                 }
              )} 
             // onClick={() => alert('tits')}
@@ -80,34 +92,39 @@ class TopOptions extends React.Component <AppProps2, StateVars>
                Maintenance
           </button>
           <button
-            disabled={true}
+            disabled={false}
             value="1"
-            className="SquareDis"
-            // onClick={() => this.state.show:false}
-            >  
-               Payments
-          </button>
-          <button
-            disabled={true}
-            value="1"
-            className="SquareDis"
-            // onClick={() => this.state.show:false}
+            className="CenterSquare"
+            onClick={(e) => 
+              this.setState({ showR:true },
+                () => {
+                  this.setState({
+                    showM:false,
+                    showS:false,
+                    showB:false
+                  });
+                }
+             )} 
             >  
                Reservations
           </button>
-          <button
-            disabled={false}
+          {/* <button
+            disabled={true}
             value="1"
             className="SquareDis"
-            // onClick={() => this.state.show:false}
+            
             >  
-               Subscriptions
-          </button>
+               Payments
+          </button> */}
+          
+          
           
         </div>
         {!this.state.showB ? null : <Buildings bldgsList2={this.props.bldgsList} />}
         {/* {!this.state.showM ? null : <Maint maintList={MaintList} />} */}
         {!this.state.showM ? null : <Maint superUser={this.props.superUser} userID={this.props.userID} />}
+        {!this.state.showS ? null : <Subs bldgsList2={this.props.bldgsList}  superUser={this.props.superUser} userID={this.props.userID} />}
+        {!this.state.showR ? null : <Reserve />}
       
       </div>
     );

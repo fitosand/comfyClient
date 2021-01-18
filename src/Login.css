@@ -25,7 +25,10 @@ body {
   align-items: center;
   justify-content: center;
   flex: 50%;
-  background-color: #1890ff;
+  background-image: linear-gradient(to bottom right, #aa96da, #118df0);
+  /* opacity: 0.5;
+  z-index: 300; */
+  /* background-color: #8a79f7; */
 }
 
 .formWrapper {

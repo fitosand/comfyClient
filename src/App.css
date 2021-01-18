@@ -262,6 +262,37 @@ a{
   margin-left: 10px;
 }
 
+.subsTitle{
+  font-size: 22px;
+  margin-left: 10px;
+}
+
+.chosenButton{
+  border-bottom: 3px solid #00dcb8 !important;
+  font-size:16px;
+}
+
+.activeList, .inactiveList{
+  font-size:16px;
+  padding:5px 0px;
+  margin: 0px 10px;
+  border:none;
+  background-color: #f4f7f8;
+  
+}
+
+.activeList:hover, .inactiveList:hover{
+  border-bottom: 3px solid #00dcb8 !important;
+}
+
+.activeList:active, .activeList:focus ,  .inactiveList:active, .inactiveList:focus  {
+  border-bottom: 3px solid #00dcb8 !important;
+  outline: 0;
+
+}
+
+focus {outline:0;}
+
 /* dashboard cards */
 
 .unitImage{
@@ -483,12 +514,124 @@ a{
   margin-left: auto;
 }
 
+/* SUBSCRIPTION CARD DESIGN  */
+
 .ImgMaint{
   border-radius:50%;
   height:80px;
   width:80px;
+  font-size:12px;
 }
 
+.serviceIcon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  height:80px;
+  width:80px;
+  background-color: #00dcb830;
+  color:#00dcb8;
+}
+
+.windowCleaningIcon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  height:80px;
+  width:80px;
+  background-color: #eb575730;
+  color:#eb5757;
+
+}
+
+.steamIcon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  height:80px;
+  width:80px;
+  background-color: #F9A43B30;
+  color:#F9A43B;
+
+}
+
+.insuranceIcon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  height:80px;
+  width:80px;
+  background-color: #0148df30;
+  color:#0148df;
+
+}
+
+.clothesIcon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+  height:80px;
+  width:80px;
+  background-color: #8a79f730;
+  color:#8a79f7;
+
+}
+
+
+/* .serviceName{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:5px 15px;
+  height:80px;
+  width:80px;
+  font-size:12px;
+} */
+
+.serviceFreq{
+  font-size: 13px;
+  color: #777;
+}
+
+.addSubsBtn{
+  background-color: #00dcb8;
+  color:white;
+  padding: 6px 26px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:360px; 
+
+}
+
+.addSubsBtn:after{
+  font-weight: bold;
+  content: 'buy';
+  font-size:16px;
+}
+
+.addSubsBtn:hover{
+  background-color: #00dcb8;
+  color:white;
+  transition: 0.3s;
+  cursor:pointer;
+  width: 90px;
+  
+  
+}
+.addSubsBtn:hover:after{
+  content: '→';
+  color:white;
+
+}
+
+
+/* TICKET STYLING FOR ADMIN VIEW */
 .addBtn{
   font-size:24px;
   padding: 10px;
@@ -499,7 +642,7 @@ a{
 
 .brokenButton{
   background-color: #f4511e;
-  opacity:0.8;
+  /* opacity:0.8; */
   color:white;
   padding: 8px 16px;
   border:none;
@@ -521,13 +664,50 @@ a{
 
 .fixedButton{
   background-color: #00dcb8;
-  opacity:0.6;
-  color:black;
+  /* opacity:0.6; */
+  color:white;
   padding: 8px 24px;
   border:none;
   font-size:14px;
   outline: none;
   border-radius:360px;
+
+}
+
+/* TICKET STYLING FOR RESIDENT VIEW */
+.openTicket{
+  
+  background-color: #00dcb8;
+  /* opacity:0.8; */
+  color:white;
+  padding: 8px 16px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:360px;
+  content: 'open';
+
+}
+
+.openTicket::after{
+  content: 'open';
+
+}
+
+.closedTicket{
+  background-color: #f4511e;
+  /* opacity:0.6; */
+  color:white;
+  padding: 8px 24px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:360px;
+  content: 'closed';
+}
+
+.closedTicket::after{
+  content: 'closed';
 
 }
 
@@ -570,14 +750,13 @@ a{
 
 .addNewBtn{
   background-color: #fff;
-  opacity:0.6;
+  /* opacity:0.6; */
   color:#00dcb8;
   padding: 6px 26px;
   border:0.5px solid #00dcb8;
   font-size:14px;
   outline: none;
-  border-radius:360px;
-  
+  border-radius:360px; 
 
 }
 
@@ -838,7 +1017,7 @@ a{
 @media only screen and (max-width:1300px){
   .horCard{
     width:70%;
-    background-color: teal;
+    /* background-color: teal; */
   }
 }
 
