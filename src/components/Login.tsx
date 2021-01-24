@@ -1,5 +1,7 @@
 import React from "react";
 import "../Login.css";
+import { RiHotelLine } from "react-icons/ri";
+
 
 interface LogProps {
   StatUpdate: () => void;
@@ -76,7 +78,7 @@ export default class Login extends React.Component<LogProps, LogStates> {
         </div>
         <div className="formWrapper">
           <div className="form">
-            <span className="logo">🏢</span>
+            <span className="logo"><RiHotelLine /></span>
             <div className="logo">Comfy</div>
             <form
               onSubmit={(e: React.SyntheticEvent) => {

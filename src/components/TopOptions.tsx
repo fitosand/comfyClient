@@ -4,6 +4,11 @@ import Maint from './Maint';
 import Subs from './Subs';
 import Reserve from './Calendar';
 import '../Calendar.css'
+import { BsCalendarFill } from "react-icons/bs";
+import { FaTools } from "react-icons/fa";
+
+import { FaRedoAlt } from "react-icons/fa";
+import { RiHotelLine } from "react-icons/ri";
 
 interface AppProps2{
   // value: any,
@@ -42,59 +47,88 @@ class TopOptions extends React.Component <AppProps2, StateVars>
           {this.props.superUser? //if admin
           <button
             value="1"
-            className="CenterSquare"
+            className={this.state.showB ? 'CenterSquareActive' : 'CenterSquare'}
             
             onClick={(e) => 
               this.setState({ showB:true },
                 () => {
                   this.setState({
                     showM:false,
-                    showS:false
+                    showS:false,
+                    showR:false
                   });
                 }
              )} 
             >  
-               Buildings
+            <div className="card1__description">
+              <div className="icon fa fa-flask card1__descriptionIcon">
+                <RiHotelLine />
+              </div>
+              <div className="card1__descriptionText">
+                {/* {this.state.items[0].service} */}
+              </div>
+              <div className="priceText">Buildings</div>
+            </div>
           </button>
           :
           ''
           }
+          
           <button
             disabled={false}
             value="1"
-            className="CenterSquare"
+            className={this.state.showS ? 'CenterSquareActive' : 'CenterSquare'}
             onClick={(e) => 
               this.setState({ showS:true },
                 () => {
                   this.setState({
                     showM:false,
-                    showB:false
+                    showB:false,
+                    showR:false
                   });
                 }
              )} 
             >  
-               Subscriptions
+            <div className="card1__description">
+              <div className="icon fa fa-flask card1__descriptionIcon">
+                <FaRedoAlt />
+              </div>
+              <div className="card1__descriptionText">
+                {/* {this.state.items[0].service} */}
+              </div>
+              <div className="card1__descriptionText">Subscriptions</div>
+            </div>
+            {/* <RiCheckboxMultipleFill /><span> Subscriptions</span> */}
           </button>
           <button
             value="1"
-            className="CenterSquare"
+            className={this.state.showM ? 'CenterSquareActive' : 'CenterSquare'}
             onClick={() => 
               this.setState({ showM:true },
                 () => {
                   this.setState({
                     showB:false,
-                    showS:false
+                    showS:false,
+                    showR:false
                   });
                 }
              )} 
             // onClick={() => alert('tits')}
             >  
-               Maintenance
+            <div className="card1__description">
+              <div className="icon fa fa-flask card1__descriptionIcon">
+                <FaTools />
+              </div>
+              <div className="card1__descriptionText">
+                {/* {this.state.items[0].service} */}
+              </div>
+              <div className="card1__descriptionText">Maintenance</div>
+            </div>
           </button>
           <button
             disabled={false}
             value="1"
-            className="CenterSquare"
+            className={this.state.showR ? 'CenterSquareActive' : 'CenterSquare'}
             onClick={(e) => 
               this.setState({ showR:true },
                 () => {
@@ -106,7 +140,15 @@ class TopOptions extends React.Component <AppProps2, StateVars>
                 }
              )} 
             >  
-               Reservations
+            <div className="card1__description">
+              <div className="icon fa fa-flask card1__descriptionIcon">
+                <BsCalendarFill />
+              </div>
+              <div className="card1__descriptionText">
+                {/* {this.state.items[0].service} */}
+              </div>
+              <div className="card1__descriptionText">Reservations</div>
+            </div>
           </button>
           {/* <button
             disabled={true}

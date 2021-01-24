@@ -1,20 +1,11 @@
 import React from "react";
 import 'antd/dist/antd.css';
-import { Tag, Divider, Button, Alert, Card } from 'antd';
-import {
-    PlusOutlined,
-    CheckCircleOutlined,
-    SyncOutlined,
-    CloseCircleOutlined,
-    ExclamationCircleOutlined,
-    ClockCircleOutlined,
-    MinusCircleOutlined,
-    SmileTwoTone, HeartTwoTone, CheckCircleTwoTone, ClockCircleTwoTone,
-    PlusCircleTwoTone,
-    
-  } from '@ant-design/icons';
+
   import { HiArrowNarrowRight } from "react-icons/hi";
   import { Typography } from 'antd';
+  import { toast } from "react-toastify";
+
+  toast.configure();
 
 const { Paragraph } = Typography;
 
@@ -149,7 +140,8 @@ class Maint extends React.Component<AppProps4, AppStates> {
         .then((response) => (response.json())
         .then((responseData) => {
             // console.log(responseData);
-            alert('Ticket Created!');
+            // alert('Ticket Created!');
+            toast("Ticket Created!", { type: "success" });
             
             this.componentDidMount();//reload tickets!
             
@@ -181,7 +173,8 @@ class Maint extends React.Component<AppProps4, AppStates> {
         .then((response) => (response.json())
         .then(() => {
             //console.log(responseData);
-            alert('Congrats! Issue fixed.');
+            // alert('Congrats! Issue fixed.');
+            toast("Congrats! Issue fixed.", { type: "success" });
             this.componentDidMount();//reload tickets!
              
         })
@@ -210,7 +203,8 @@ class Maint extends React.Component<AppProps4, AppStates> {
         .then((response) => (response.json())
         .then(() => {
             //console.log(responseData);
-            alert('item Deleted!');
+            // alert('item Deleted!');
+            toast("item Deleted!", { type: "success" });
             this.componentDidMount();//reload tickets!
              
         })

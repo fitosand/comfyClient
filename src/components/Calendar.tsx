@@ -3,7 +3,15 @@ import * as React from "react";
 //import daygrid from "fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import { FaSwimmingPool } from "react-icons/fa";
+import { CgGym } from "react-icons/cg";
+import { GiPartyPopper } from "react-icons/gi";
+
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
 
 
 interface LogProps {}
@@ -22,22 +30,34 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
       // handleDateClick = (e) => alert(e.dateStr)
       calendarEvents: [
         // initial event data
-        { title: "Event Now", date: new Date() }
+        {
+          title: "Event Now",
+          start: new Date(),
+          end: "2021-01-05T11:30:00"
+        },
+        { title: "event 2", start: "2021-01-15" }
       ]
     };
   } 
 
-  handleDateClick = (arg:any) => {
-      alert(arg.dateStr)
+  handleDateClick = (arg: any) => {
+    console.log(arg.dateStr);
+    // FullCalendar.changeView = "dayGridDay";
+    if (
+      window.confirm("Please, confirm your Reservation:\n" + arg.date + " ?")
+    ) {
       this.setState({
         // add new event data
         calendarEvents: this.state.calendarEvents.concat({
           // creates a new array
-          title: "New Event",
-          date: arg.dateStr,
-          // allDay: arg.allDay
+          title: "Pool Reservation",
+          //date: arg.dateStr
+          start: arg.dateStr,
+          end: arg.datStr
+          // allDay: false
         })
       });
+    }
   };
 
   // handleDateClick = (e: any) => {
@@ -50,19 +70,37 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
 
   render() {
     return (
-      <div className="Calendar">
-        <h1 className="reserveTypeTitle">Pool Reservations</h1>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          // weekends={false},
+      <div>
+        <div className="reserveButtons">
+          <button className="reserveName">
+            <span className="poolIcon"><FaSwimmingPool /></span>
+            <span > Pool </span> 
+          </button>
+          <button className="reserveNameDis">
+            <span className="poolIcon"><CgGym /></span>
+            <span > Gym </span> 
+          </button>
+          <button className="reserveNameDis">
+            <span className="poolIcon"><GiPartyPopper /></span>
+            <span > Banquet Hall </span> 
+          </button>
+        </div>
+        <div className="Calendar">
           
-          events={[
-            { title: "reserved", date: "2021-01-17" },
-            { title: "reserved", date: "2021-01-15" }
-          ]}
-          dateClick={this.handleDateClick}
-        />
+          <FullCalendar
+            defaultView="dayGridMonth"
+            header={{
+              left: "prev,next",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay"
+            }}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            events={this.state.calendarEvents}
+            navLinks={true} // can click day/week names to navigate views
+            editable={true}
+            dateClick={this.handleDateClick}
+          />
+        </div>
       </div>
     );
   }

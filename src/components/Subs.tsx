@@ -1,10 +1,20 @@
 import React from "react";
-import Units from './Units';
+// import Units from './Units';
 import 'antd/dist/antd.css';
 import { RiCarWashingFill}  from "react-icons/ri";
 import { CgSmartHomeWashMachine } from "react-icons/cg";
 import { AiOutlineWindows } from "react-icons/ai";
 import { GiVacuumCleaner, GiClothes } from "react-icons/gi";
+
+//stripe checkout library
+import StripeCheckout from "react-stripe-checkout";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { loadStripe } from '@stripe/stripe-js';
+
+// const stripePromise = loadStripe("pk_test_51Hgsw1F8G2AFQqZaHjBzJtwhluK6M0wbNm39a0iY2PKNOxXVMQHIbzCRqQEU2EacETTw8JqxhKDS5xTeaic3XF9X00keCD6mLj");
+
+toast.configure();
 
 
 interface AppProps3{
@@ -17,8 +27,42 @@ interface AppProps3{
 
 interface AppStates {
     bldgUnits:string[],
+    items: any;
+    // token:string,
+    product:any,
+    // handleToken: () => void;
 
 }
+
+
+// function handleToken(token, product){
+//     toast("Success! Check email for details", { type: "success" });
+//   }
+
+//   function handleToken(token, product){
+//     toast("Success! Check email for details", { type: "success" });
+
+//     fetch('/save-stripe-token', {
+//         method: 'POST',
+//         body: JSON.stringify(token),
+//       }).then(response => {
+//         response.json().then(data => {
+//           alert(`We are in business, ${data.email}`);
+//         });
+//       });
+
+    // const response = await axios.post(
+    // "https://ry7v05l6on.sse.codesandbox.io/checkout",
+    // { token, product }
+    // );
+    // const { status } = response.data;
+    // console.log("Response:", response.data);
+    // if (status === "success") {
+    // toast("Success! Check email for details", { type: "success" });
+    // } else {
+    // toast("Something went wrong", { type: "error" });
+    // }
+//}
 
 
 class Subs extends React.Component<AppProps3, AppStates> 
@@ -27,10 +71,107 @@ class Subs extends React.Component<AppProps3, AppStates>
     {
         super(props);
         this.state = {
-        bldgUnits: ['Unit1', 'Unit2', 'Unit3']
+        bldgUnits: ['Unit1', 'Unit2', 'Unit3'],
+        items: [
+            {
+              service: "window cleaning",
+              price: "$2.99",
+              detail: "2/mo"
+            },
+    
+            {
+              service: "car wash",
+              price: "$2.99",
+              detail: "2/mo"
+            },
+            {
+              service: "oil recycle",
+              price: "$2.99",
+              detail: "2/mo"
+            }
+          ],
+        //   token:'',
+          product: [{
+            service: "window cleaning",
+            price: "$2.99",
+            detail: "2/mo"
+    
+        }]
+        
     };
+    
           
 }
+// Codesandbox server
+// handleToken = (token:any) => {
+//     fetch('https://ry7v05l6on.sse.codesandbox.io/checkout', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(token),
+//     }).then(response => {
+//       response.json().then(data => {
+//         alert(`We are in business, ${data.email}`);
+//       });
+//     });
+//   }
+
+//     handleToken = (token:any) => {
+//     fetch('http://localhost:3000/create-checkout-session', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(token),
+//     }).then(response => {
+//       response.json().then(data => {
+//         alert(`We are in business, ${data.email}`);
+//       });
+//     });
+//   }
+
+  async handleToken(token:any){
+        console.log(token);
+    
+        console.log('front-end');
+        try{
+            let response = await fetch("http://localhost:3000/api/payment/checkout", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "token": token,
+                "product": {
+                    "name": "window cleaning",
+                    "price": 29,
+                    "detail": "2/mo"
+                
+                    }
+            })
+        
+            });
+            if (!response.ok) throw response.statusText;
+                toast("Success! Check email for details", { type: "success" });
+        
+                //console.log(response);
+                return response
+        } catch (e) {
+            //console.log('this')
+            console.error('front-end Error', e);
+            toast("Something went wrong", { type: "error" });
+            return null
+        }
+
+    }
+      
+        // .then(res => {
+        //     res.json()
+        //     })
+        // .then(json => {
+        //     console.log(json)
+        //     });
 
   render(){
     return (
@@ -60,7 +201,16 @@ class Subs extends React.Component<AppProps3, AppStates>
                     </div>
                     <div className="cardColEnd">
                         <span className="addBtn">
+                        <StripeCheckout
+                            stripeKey="pk_test_51Hgsw1F8G2AFQqZaHjBzJtwhluK6M0wbNm39a0iY2PKNOxXVMQHIbzCRqQEU2EacETTw8JqxhKDS5xTeaic3XF9X00keCD6mLj"
+                            token={this.handleToken}
+                            amount={this.state.product.price * 100}
+                            name={this.state.product.service}
+                            // billingAddress
+                            // shippingAddress
+                        >
                             <button className="addSubsBtn"></button>
+                        </StripeCheckout>
                         </span>
                     </div>
                                 
