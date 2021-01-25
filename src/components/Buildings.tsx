@@ -1,12 +1,12 @@
 import React from "react";
 import Units from './Units';
 import 'antd/dist/antd.css';
-import { Tag, Divider, Button, Alert, Card } from 'antd';
-import {
-    ToolTwoTone,
-    HomeTwoTone,
-    CreditCardTwoTone
-  } from '@ant-design/icons';
+// import { Tag, Divider, Button, Alert, Card } from 'antd';
+// import {
+//     ToolTwoTone,
+//     HomeTwoTone,
+//     CreditCardTwoTone
+//   } from '@ant-design/icons';
 
 interface AppProps3{
   // value: any,

@@ -9,8 +9,8 @@ import { GiVacuumCleaner, GiClothes } from "react-icons/gi";
 //stripe checkout library
 import StripeCheckout from "react-stripe-checkout";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { loadStripe } from '@stripe/stripe-js';
+// import axios from "axios";
+// import { loadStripe } from '@stripe/stripe-js';
 
 // const stripePromise = loadStripe("pk_test_51Hgsw1F8G2AFQqZaHjBzJtwhluK6M0wbNm39a0iY2PKNOxXVMQHIbzCRqQEU2EacETTw8JqxhKDS5xTeaic3XF9X00keCD6mLj");
 
@@ -145,15 +145,16 @@ class Subs extends React.Component<AppProps3, AppStates>
                 "token": token,
                 "product": {
                     "name": "window cleaning",
-                    "price": 29,
+                    "price": 8.99,
                     "detail": "2/mo"
                 
                     }
             })
         
             });
+            
             if (!response.ok) throw response.statusText;
-                toast("Success! Check email for details", { type: "success" });
+            toast("Success! Check email for details", { type: "success" });
         
                 //console.log(response);
                 return response
