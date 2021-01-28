@@ -181,7 +181,7 @@ class App extends React.Component < {},LogStates>
   
   render(){
     return (
-      <div>
+      <div className="mainApp">
         {/* <Login />
         <Sidebar />
         <Dashboard MyBuildings={buildingsList}/> */}
@@ -221,7 +221,7 @@ class App extends React.Component < {},LogStates>
           userID={this.state.userID} 
           MyBuildings={buildingsList}
           />
-          <RPanel />
+          {/* <RPanel /> */}
           
         </div>
         }

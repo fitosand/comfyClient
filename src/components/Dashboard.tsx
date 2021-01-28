@@ -29,10 +29,10 @@ class Dashboard extends React.Component<AppProps, DashBoardStates> {
             <TopOptions superUser={this.props.superUser} userID={this.props.userID} 
           bldgsList={this.props.MyBuildings} />
           </div>
-          <div className="rPanel">
-            <RPanel />
+          {/* <div className="rPanel">
+            <RPanel superUser={this.props.superUser} userID={this.props.userID} />
 
-          </div>
+          </div> */}
           
         
       </div>

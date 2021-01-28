@@ -12,6 +12,9 @@ import { GiPartyPopper } from "react-icons/gi";
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
+import { toast } from "react-toastify";
+
+toast.configure();
 
 
 interface LogProps {}
@@ -46,6 +49,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
     if (
       window.confirm("Please, confirm your Reservation:\n" + arg.date + " ?")
     ) {
+      //fetch data here!
       this.setState({
         // add new event data
         calendarEvents: this.state.calendarEvents.concat({
@@ -57,6 +61,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
           // allDay: false
         })
       });
+      toast('Your reservation was made. Enjoy!')
     }
   };
 
@@ -88,6 +93,10 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
         <div className="Calendar">
           
           <FullCalendar
+            height={70} // sets height to height of resources.
+            minTime={'06:00'} // start timeline at this time, must be in format '08:00'
+            maxTime={'20:00'} // end timeline at this time, must be in format '18:00'
+            slotDuration={'01:00:00'}
             defaultView="dayGridMonth"
             header={{
               left: "prev,next",
