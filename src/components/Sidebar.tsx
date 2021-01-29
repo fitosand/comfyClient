@@ -8,6 +8,8 @@ interface LogProps2 {
   LogStatus:boolean,
   StatUpdate:() => void;
   StatUpdate3:() => void;
+  bInfo:string,
+  UnitInfo:string,
   superUser:boolean
 };
 
@@ -19,6 +21,8 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
     
 
   render(){
+
+    console.log("superUser:",this.props.bInfo)
     return(
     <div className="Sidebar">
       <div className="centerSideItems">
@@ -33,20 +37,38 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
         </div>
         <div className="userInfo">
         <div className="SidebarItemText">Pablo Mejia</div>
-        <p style={{ color: '#00dcb8' }}>{!this.props.superUser? 'resident' : 'admin' }</p>
+        <p style={{ color: '#00dcb8' }}>{!this.props.superUser? 'resident'
+         : 'admin' }</p>
+
+         {/* show info if resident */}
+         <span style={{fontSize:'10px', color:'gray'}}>
+         {
+          !this.props.superUser?
+           this.props.bInfo:''
+         }
+          </span>
+          <span style={{fontSize:'10px', color:'gray'}}>
+         {
+          !this.props.superUser?
+           this.props.UnitInfo:''
+         }
+          </span>
+
         </div>
       </div>
-      <div className="SidebarItem">
+      <div className="SidebarItemActive">
         <div className="SidebarItemIcon"><AiIcons.AiFillHome /></div>
         <div className="SidebarItemText">Home</div>
       </div>
       <div className="SidebarItem">
         <div className="SidebarItemIcon"><AiIcons.AiFillMessage /></div>
         <div className="SidebarItemText">Messages</div>
+        <p style={{fontSize:'10px', color:'#00dcb830'}}>(coming soon)</p>
       </div>
       <div className="SidebarItem">
         <div className="SidebarItemIcon"><AiIcons.AiFillCloud /></div>
         <div className="SidebarItemText">Docs</div>
+        <p style={{fontSize:'10px', color:'#00dcb830'}}>(coming soon)</p>
       </div>
 
       {/* <div className="SidebarItem">

@@ -35,6 +35,8 @@ interface LogStates {
   loggedIn:boolean,
   token: string,
   userID:string,
+  bInfo:string,
+  UnitInfo:string,
   superUser:boolean,
   name:string,
   email:string,
@@ -57,6 +59,8 @@ class App extends React.Component < {},LogStates>
       token: '',
       userID:'',
       superUser:false,
+      bInfo:'',
+      UnitInfo:'',
       name:'',
       email: '',
       password: '',
@@ -68,16 +72,21 @@ class App extends React.Component < {},LogStates>
     };
   }
 
-  //check login status
+  //check login status & resident or admin
   componentDidMount(){
     {!localStorage.getItem('auth-token')? //if empty local storage
-      // console.log('auth-token:empty'):
-      // console.log('auth-token:not empty');
+      
       this.setState({loggedIn: false}):
+      
+        localStorage.getItem('superUser') === 'true'? //if superUser = true
+        this.setState({superUser: true}):
+        this.setState({superUser: false})
+        this.setState({bInfo: this.state.bInfo});
+        console.log(this.state.bInfo) //prints nothing right now!
+        this.setState({UnitInfo: this.state.UnitInfo});
+
+      }
       this.setState({loggedIn: true})
-    }
-    //console.log("logged in", this.state.loggedIn);
-    
     
   }
   
@@ -104,16 +113,20 @@ class App extends React.Component < {},LogStates>
             
             this.setState({token: result.token});
             this.setState({userID: result.user});
-            this.setState({superUser: result.superUser})
+            this.setState({superUser: result.superUser});
+            this.setState({bInfo: result.bInfo});
+            this.setState({UnitInfo: result.UnitInfo});
+            console.log("this",result.BlgdInfo);
             //console.log(result.superUser)//logs user ID
             localStorage.setItem('userID', result.user);
+            localStorage.setItem('superUser', result.superUser);
             localStorage.setItem('auth-token',result.token);//sets token on memory
   
             this.setState({
               loggedIn: !this.state.loggedIn, //redirects here!!!
               
             });
-            console.log(this.state.loggedIn);
+            console.log("loggedin:" , this.state.loggedIn);
           
         })
         .catch((error) => {
@@ -134,7 +147,9 @@ class App extends React.Component < {},LogStates>
         },
         body: JSON.stringify({
           "email": this.state.email,
-          "password": this.state.password
+          "password": this.state.password,
+          "building": 'Tivoli',
+          "unit": '5'
         })
       })
         // .then(res => res.json())
@@ -150,6 +165,7 @@ class App extends React.Component < {},LogStates>
           console.log(result.user._id)//logs user ID
           localStorage.setItem('userID', result.user);
           localStorage.setItem('auth-token',result.token);//sets token on memory
+          localStorage.setItem('superUser', result.superUser);
           
           // if(!result.ok){ throw result }
           
@@ -211,7 +227,9 @@ class App extends React.Component < {},LogStates>
           <Sidebar 
           StatUpdate={this.StatUpdate} 
           StatUpdate3={this.StatUpdate3} 
-          LogStatus={this.state.loggedIn} 
+          LogStatus={this.state.loggedIn}
+          bInfo= {this.state.bInfo}
+          UnitInfo={this.state.UnitInfo}
           superUser={this.state.superUser}
 
           />

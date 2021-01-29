@@ -40,6 +40,10 @@ a{
   font-size: 12px;
 }
 
+.SidebarItemText>p{
+  margin-bottom: 0;
+}
+
 .SidebarItem {
   width: 100%;
   text-align: center;
@@ -57,6 +61,23 @@ a{
 }
 
 .SidebarItem:hover {
+  background-color: #f1f1f1;
+}
+
+.SidebarItemActive {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  margin-top:20px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  /* border-radius: 10px; */
+  border:none;
+  cursor: pointer;
+  background: none;
   background-color: #f1f1f1;
 }
 
@@ -100,7 +121,7 @@ a{
   /* Increased text to enable scrolling */
   font-size: 28px; 
   padding: 0px 10px;
-  /* margin-left: 160px; */
+  margin-left: 80px;
   margin-right:450px;
   background-color: #f4f7f8;
 
@@ -193,7 +214,7 @@ a{
   border: none;
   background: white;
   font-size:16px;
-  width: 220px;
+  width: 350px;
   height: 167px;
   /* min-width: 150px;
   min-height: 150px; */
@@ -213,7 +234,7 @@ a{
   border: none;
   background: #0f171f;
   font-size:16px;
-  width: 220px;
+  width: 350px;
   height: 167px;
   /* min-width: 150px;
   min-height: 150px; */
@@ -434,6 +455,51 @@ focus {outline:0;}
   padding:10px 20px;
   background-color: white;
   position: relative;
+  border-radius: 5px;
+  
+}
+
+.horCardOpen {
+  display:block;
+  align-items: center;
+  margin:10px;
+  /* width: 650px; */
+  height:100px;
+  padding:10px 20px;
+  background-color: white;
+  position: relative;
+  border-radius:4px;
+  border-left:4px solid #00dcb8;
+}
+
+.horCardOpen:hover .delButton{
+  /* background-color: antiquewhite; */
+  cursor:pointer;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+  display: block;
+}
+
+.horCardClosed:hover .delButton{
+  /* background-color: antiquewhite; */
+  cursor:pointer;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+  display: block;
+}
+
+.horCardClosed{
+  display:block;
+  align-items: center;
+  margin:10px;
+  /* width: 650px; */
+  height:100px;
+  padding:10px 20px;
+  background-color: white;
+  position: relative;
+  border-radius:4px;
+  border-left:4px solid #eb5757;
+
 }
 
 /* close button to card */
@@ -476,6 +542,8 @@ focus {outline:0;}
   /* height:100px; */
   /* padding:10px 20px; */
   background-color: white;
+  border: 1px solid #cad0d2;
+    border-radius: 4px;
 }
 
 
@@ -542,6 +610,20 @@ focus {outline:0;}
   display:flex;
   justify-content: flex-end;
   margin-left: auto;
+}
+
+/* fade as maint items show up */
+.fade {
+  animation: fade-in-keyframes 1s;
+  /* animation-delay: 1s; */
+}
+@keyframes fade-in-keyframes {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* SUBSCRIPTION CARD DESIGN  */
@@ -649,7 +731,7 @@ focus {outline:0;}
 .addSubsBtn:hover{
   background-color: #00dcb8;
   color:white;
-  transition: 0.3s;
+  transition: all 0.2s ease;
   cursor:pointer;
   width: 90px;
   
@@ -687,7 +769,7 @@ focus {outline:0;}
 
 .brokenButton:hover{
   opacity:1;
-  transition:0.3s;
+  transition: all 0.2s ease;
   /* background-color: antiquewhite; */
   cursor:pointer;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
@@ -787,25 +869,29 @@ focus {outline:0;}
 .addNewBtn{
   background-color: #fff;
   /* opacity:0.6; */
-  color:#00dcb8;
-  padding: 6px 26px;
-  border:0.5px solid #00dcb8;
+  /* color:#00dcb8; */
+  color:white;
+  padding: 0px 4px;
+  background: #556cd6;
+  border:none;
+  /* border:0.5px solid #00dcb8; */
   font-size:14px;
   outline: none;
-  border-radius:360px; 
+  border-radius: 5px;
+  width:100px;
 
 }
 
 .addNewBtn:after{
   /* font-weight: bold; */
-  content: 'add';
+  content: '+ add';
   /* font-size:16px; */
 }
 
 .addNewBtn:hover{
   background-color: #00dcb8;
   color:white;
-  transition: 0.3s;
+  transition: all 0.2s ease;
   cursor:pointer;
   width: 90px;
   
@@ -815,14 +901,6 @@ focus {outline:0;}
   content: '→';
   color:white;
 
-}
-
-.horCard:hover .delButton{
-  /* background-color: antiquewhite; */
-  cursor:pointer;
-  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
-  box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
-  display: block;
 }
 
 .ant-card .ant-card-bordered{
@@ -1107,10 +1185,6 @@ focus {outline:0;}
       margin-bottom: 5px;
   }
 }
-
-
-
-
 
 
 

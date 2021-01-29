@@ -166,7 +166,7 @@ class TopOptions extends React.Component <AppProps2, StateVars>
         {/* {!this.state.showM ? null : <Maint maintList={MaintList} />} */}
         {!this.state.showM ? null : <Maint superUser={this.props.superUser} userID={this.props.userID} />}
         {!this.state.showS ? null : <Subs bldgsList2={this.props.bldgsList}  superUser={this.props.superUser} userID={this.props.userID} />}
-        {!this.state.showR ? null : <Reserve />}
+        {!this.state.showR ? null : <Reserve userID={this.props.userID} />}
       
       </div>
     );

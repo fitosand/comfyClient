@@ -1,11 +1,11 @@
 import React from "react";
 import 'antd/dist/antd.css';
 
-  import { HiArrowNarrowRight } from "react-icons/hi";
-  import { Typography } from 'antd';
-  import { toast } from "react-toastify";
+ 
+import { Typography } from 'antd';
+import { toast } from "react-toastify";
 
-  toast.configure();
+toast.configure();
 
 const { Paragraph } = Typography;
 
@@ -222,23 +222,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
                 <h3>Maintenance Requests ({this.state.numItems})</h3>
                 
                 <ul className="horCards">
-                    {/* THIS IS THE ADD BUTTON */}  
-                {/* <li className="horCard1">
                     
-                    <div className="cardCols">
-                        <div className="center">
-                            <div className="cardColStart">
-                                <img src={'https://aosa.org/wp-content/uploads/2019/04/image-placeholder-350x350.png'} alt="boohoo" className="ImgMaint"/>
-                                <div className="maintDesc">
-                                        <div>Add</div>
-                                    </div>
-                            </div>
-                            <span>+</span>
-                        </div>
-                        
-                    </div>
-                    
-                </li>  */}
                 <li className="horCard2">
                     <div className="cardColsAdd"> 
                     
@@ -284,7 +268,9 @@ class Maint extends React.Component<AppProps4, AppStates> {
                 
                 {/* ITERATE OVER LIST OF ITEMS HERE */}
                 {this.state.maintItems.map(( {resident,_id, unit, issue, date, status} ) => {
-                return <li className="horCard" key={_id}>
+                return <li className={status === 'fixed' 
+                ? "horCardClosed" : "horCardOpen fade" 
+                } key={_id}>
                         <div className="cardCols">
                            
                             <img src={'https://aosa.org/wp-content/uploads/2019/04/image-placeholder-350x350.png'} alt="boohoo" className="ImgMaint"/>
@@ -346,25 +332,6 @@ class Maint extends React.Component<AppProps4, AppStates> {
                     </li>
                     
                     })}
-                
-                
-                {/* <li className="horCard">
-                    <div className="cardCols">
-                    <img src={'https://aosa.org/wp-content/uploads/2019/04/image-placeholder-350x350.png'} alt="boohoo" className="ImgMaint"/>
-                        <div className="maintDesc">
-                            <div><b>Unit:</b>  1</div>
-                            <div><b>Issue:</b> Broken Roof</div>
-                            <div><b>Time:</b> 12/08/2020, 05:04:32 PM</div>
-                        </div>
-                        <div className="cardColEnd">
-                            <span className="addBtn"> */}
-                                {/* <CheckCircleTwoTone twoToneColor="#52c41a" /> */}
-                                {/* <button className="fixedButton">fixed</button>
-                            </span>
-                        </div>
-                        
-                    </div>
-                </li>  */}
                       
                 </ul>
                
