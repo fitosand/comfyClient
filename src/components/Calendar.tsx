@@ -68,7 +68,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
     })
     .then((response) => (response.json())
     .then((responseData) => {
-        console.log(responseData);
+        // console.log(responseData);
         
         this.setState({
       
@@ -121,7 +121,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
     })
     .then((response) => (response.json())
     .then((responseData) => {
-        console.log(responseData);
+        // console.log(responseData);
         //console.log(this.state.start)
         // alert('Ticket Created!');
         // toast("Ticket Created!", { type: "success" });

@@ -6,7 +6,7 @@ import Reserve from './Calendar';
 import '../Calendar.css'
 import { BsCalendarFill } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
-
+import avatar from '../Assets/avatar.png';
 import { FaRedoAlt } from "react-icons/fa";
 import { RiHotelLine } from "react-icons/ri";
 
@@ -42,6 +42,18 @@ class TopOptions extends React.Component <AppProps2, StateVars>
   render(){
 
     return (
+      <div>
+        <div className="dashNavBar">
+          <div style={{color:"lightgray"}}>search</div>
+          <div>
+            <img
+              className="avatarPhoto"
+              alt="user"
+              src={avatar}
+            />
+          </div>
+
+        </div>
       <div className="CategoryBoard">
         <div className="Squares">
           {this.props.superUser? //if admin
@@ -169,6 +181,7 @@ class TopOptions extends React.Component <AppProps2, StateVars>
         {!this.state.showR ? null : <Reserve userID={this.props.userID} />}
       
       </div>
+    </div>
     );
   }
 }

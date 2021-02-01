@@ -25,6 +25,10 @@ class Sidebar extends React.Component < LogProps2,LogStates2>  {
     console.log("superUser:",this.props.bInfo)
     return(
     <div className="Sidebar">
+      <div className="brandBanner">
+        <span>Comfy</span>
+        <span>...</span>
+      </div>
       <div className="centerSideItems">
       <div className="SidebarItemUser">
         <div>
