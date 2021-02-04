@@ -5,6 +5,8 @@ import 'antd/dist/antd.css';
 import { Typography } from 'antd';
 import { toast } from "react-toastify";
 
+import APIURL from "../helpers/environment";
+
 toast.configure();
 
 const { Paragraph } = Typography;
@@ -75,7 +77,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
         //***If not superUser, show specific
         {
             !this.props.superUser ?
-            fetch('http://localhost:3000/api/posts/'+this.props.userID,{
+            fetch(`${APIURL}/api/posts/`+this.props.userID,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,11 +99,12 @@ class Maint extends React.Component<AppProps4, AppStates> {
             :
 
             //***IF SUPERUSER IS TRUE (ADMIN), SHOW ALL***
-            fetch('http://localhost:3000/api/posts/',{
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': ''+localStorage.getItem('auth-token')
+            fetch(`${APIURL}/api/posts/`,{
+
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': ''+localStorage.getItem('auth-token')
             }
             })
             .then((response) => (response.json())
@@ -124,7 +127,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
 
     //ADD MAINTENANCE ITEMS (new post)
     async maintUpdate(){
-        await fetch('http://localhost:3000/api/posts',{
+        await fetch(`${APIURL}/api/posts`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -159,7 +162,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
         window.confirm("Are you sure you wish to change the status?") &&
         // fetch if confirmed...
         //console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
-        fetch('http://localhost:3000/api/posts/'+this.state.idNum._id,{
+        fetch(`${APIURL}/api/posts/`+this.state.idNum._id,{
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -191,7 +194,7 @@ class Maint extends React.Component<AppProps4, AppStates> {
         window.confirm("Are you sure you want to delete this post?") &&
         // fetch if confirmed...
         //console.log('http://localhost:3000/api/posts/'+this.state.idNum._id);
-        fetch('http://localhost:3000/api/posts/'+this.state.idNum._id,{
+        fetch(`${APIURL}/api/posts/`+this.state.idNum._id,{
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

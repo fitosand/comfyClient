@@ -6,6 +6,8 @@ import Login from "./components/Login";
 import RPanel from "./components/RPanel"
 import Maint from "./components/Maint";
 
+import APIURL from "./helpers/environment";
+
 
 //fetch ALL here
 let buildingsList: string[] = ["Bldg1", "Bldg2", "Bldg3"];
@@ -93,7 +95,7 @@ class App extends React.Component < {},LogStates>
   //LOGIN USER
   StatUpdate = () => {
 
-      fetch('http://localhost:3000/api/user/login', {
+    fetch(`${APIURL}/api/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -140,7 +142,7 @@ class App extends React.Component < {},LogStates>
   //REG NEW USER
   StatUpdate2 = () => {
     
-    fetch('http://localhost:3000/api/user/register', {
+    fetch(`${APIURL}/api/user/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

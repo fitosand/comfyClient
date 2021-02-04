@@ -15,6 +15,8 @@ import "@fullcalendar/timegrid/main.css";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import APIURL from "../helpers/environment";
+
 toast.configure();
 
 
@@ -59,7 +61,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
   //FETCH CURRENT CALENDAR ITEMS FOR THIS BUILDING
   componentDidMount(){
     //fetch('http://localhost:3000/api/posts/'+this.props.userID
-    fetch('http://localhost:3000/api/calendar/events/Castilla', {
+    fetch(`${APIURL}/api/calendar/events/Castilla`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -100,7 +102,7 @@ export default class theCalendar extends React.Component<LogProps, LogStates> {
   async CalUpdate(){
     
     // console.log(this.state.title, this.state.start, this.state.end, this.state.user);
-    await fetch('http://localhost:3000/api/calendar/events/new', {
+    await fetch(`${APIURL}/api/calendar/events/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

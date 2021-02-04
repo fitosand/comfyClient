@@ -7,14 +7,16 @@ import { AiOutlineWindows } from "react-icons/ai";
 import { GiVacuumCleaner, GiClothes } from "react-icons/gi";
 import { FcCheckmark } from "react-icons/fc";
 
+//env file
+const dotenv = require('dotenv');
+
 //stripe checkout library
 import StripeCheckout from "react-stripe-checkout";
 import { toast } from "react-toastify";
-// import axios from "axios";
-// import { loadStripe } from '@stripe/stripe-js';
 
-// const stripePromise = loadStripe("pk_test_51Hgsw1F8G2AFQqZaHjBzJtwhluK6M0wbNm39a0iY2PKNOxXVMQHIbzCRqQEU2EacETTw8JqxhKDS5xTeaic3XF9X00keCD6mLj");
+import APIURL from "../helpers/environment";
 
+dotenv.config();
 toast.configure();
 
 
@@ -122,7 +124,7 @@ class Subs extends React.Component<AppProps3, AppStates>
         // console.log(token);
         // console.log('front-end');
         try{
-            let response = await fetch("http://localhost:3000/api/payment/checkout", {
+            let response = await fetch(`${APIURL}/api/payment/checkout`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -149,7 +151,7 @@ class Subs extends React.Component<AppProps3, AppStates>
                 toast("Success! Check email for details", { type: "success" });
 
                 // ** change status on our db ** 
-                await fetch('http://localhost:3000/api/subs/new',{
+                await fetch(`${APIURL}/api/subs/new`,{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'     
@@ -211,6 +213,7 @@ class Subs extends React.Component<AppProps3, AppStates>
                         <span className="addBtn">
                         <StripeCheckout
                             stripeKey="pk_test_51Hgsw1F8G2AFQqZaHjBzJtwhluK6M0wbNm39a0iY2PKNOxXVMQHIbzCRqQEU2EacETTw8JqxhKDS5xTeaic3XF9X00keCD6mLj"
+                            // stripeKey={process.env.STRIPE_KEY}
                             token={this.handleToken}
                             amount={this.state.product.price * 100}
                             name={this.state.product.service}
