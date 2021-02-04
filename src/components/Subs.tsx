@@ -5,6 +5,7 @@ import { RiCarWashingFill}  from "react-icons/ri";
 import { CgSmartHomeWashMachine } from "react-icons/cg";
 import { AiOutlineWindows } from "react-icons/ai";
 import { GiVacuumCleaner, GiClothes } from "react-icons/gi";
+import { FcCheckmark } from "react-icons/fc";
 
 //stripe checkout library
 import StripeCheckout from "react-stripe-checkout";
@@ -30,6 +31,13 @@ interface AppStates {
     items: any;
     // token:string,
     product:any,
+    windClean: boolean, 
+    carWash:  boolean,
+    oilPick:  boolean,
+    houseClean:  boolean,
+    washerIns:  boolean,
+    dryerIns:  boolean,
+    subType: string
     // handleToken: () => void;
 
 }
@@ -96,45 +104,23 @@ class Subs extends React.Component<AppProps3, AppStates>
             price: "$2.99",
             detail: "2/mo"
     
-        }]
-        
+        }],
+        //subscription types
+        windClean: false, 
+        carWash:  false,
+        oilPick:  false,
+        houseClean:  false,
+        washerIns:  false,
+        dryerIns:  false,
+        subType: 'windClean'
     };
     
           
 }
-// Codesandbox server
-// handleToken = (token:any) => {
-//     fetch('https://ry7v05l6on.sse.codesandbox.io/checkout', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(token),
-//     }).then(response => {
-//       response.json().then(data => {
-//         alert(`We are in business, ${data.email}`);
-//       });
-//     });
-//   }
-
-//     handleToken = (token:any) => {
-//     fetch('http://localhost:3000/create-checkout-session', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(token),
-//     }).then(response => {
-//       response.json().then(data => {
-//         alert(`We are in business, ${data.email}`);
-//       });
-//     });
-//   }
 
   async handleToken(token:any){
-        console.log(token);
-    
-        console.log('front-end');
+        // console.log(token);
+        // console.log('front-end');
         try{
             let response = await fetch("http://localhost:3000/api/payment/checkout", {
             method: 'post',
@@ -151,14 +137,40 @@ class Subs extends React.Component<AppProps3, AppStates>
                     }
             })
         
-            });
+            })
             
-            if (!response.ok) throw response.statusText;
-            toast("Success! Check email for details", { type: "success" });
-        
-                //console.log(response);
-                return response
-        } catch (e) {
+            if (!response.ok) 
+            {
+                throw response.statusText;
+            } 
+            else//if response is OK
+            {
+                
+                toast("Success! Check email for details", { type: "success" });
+
+                // ** change status on our db ** 
+                await fetch('http://localhost:3000/api/subs/new',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'     
+                    },
+                    body: JSON.stringify({
+                        "userID": '123',
+                        subType: true
+                    })
+                    
+                // }) //NEW STUFF ENDS HERE
+
+                })
+                .then(resp => {
+                    resp.json()
+                    })
+                .then(json2 => {
+                    console.log('changed our db:',json2)
+                    });
+            } 
+        } 
+        catch (e) {
             //console.log('this')
             console.error('front-end Error', e);
             toast("Something went wrong", { type: "error" });
@@ -167,12 +179,7 @@ class Subs extends React.Component<AppProps3, AppStates>
 
     }
       
-        // .then(res => {
-        //     res.json()
-        //     })
-        // .then(json => {
-        //     console.log(json)
-        //     });
+        
 
   render(){
     return (
@@ -210,7 +217,7 @@ class Subs extends React.Component<AppProps3, AppStates>
                             // billingAddress
                             // shippingAddress
                         >
-                            <button className="addSubsBtn"></button>
+                            <button value="0" className="addSubsBtn"></button>
                         </StripeCheckout>
                         </span>
                     </div>
@@ -313,36 +320,12 @@ class Subs extends React.Component<AppProps3, AppStates>
                     </div>
                     <div className="cardColEnd">
                         <span className="addBtn">
-                            <button className="addSubsBtn"></button>
+                            <button className="subscribedButton"><FcCheckmark /></button>
                         </span>
                     </div>
                                 
                 </div>
             </li> 
-          {/* {this.props.bldgsList2.map((d) => (
-            <li className="cardPro">
-              <div >
-                  
-                  <div className="cardPro-body">
-                      <p className="full-name">{d}</p>
-                      <p className="username">337 South New York Ave </p>
-                      
-                  </div>
-                  <div className="cardPro-footer">
-                      <div className="col vr">
-                          <p className="stat"><a href="" className="count">8</a><br></br>units</p>
-                      </div>
-                      <div className="col vr">
-                      <p className="stat"
-                        ><a href="" className="count">$2.7K</a><br></br>due</p>
-                      </div>
-                      <div className="col">
-                      <p className="stat"><a href="" className="count">3</a><br></br>fix</p>
-                      </div>
-                  </div>
-              </div>
-            </li>
-          ))} */}
           
         </ul>
           

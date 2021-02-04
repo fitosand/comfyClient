@@ -278,6 +278,8 @@ a{
 .CenterSquare:hover{
   background-color: white;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  color:#00dcb8;
+  opacity:1;
   
 
 }
@@ -294,7 +296,7 @@ a{
   /* min-width: 150px;
   min-height: 150px; */
   cursor: pointer;
-  opacity:80%;
+  opacity:1;
   border-radius: 5px;
   margin: 10px;
   color:#00dcb8;
@@ -780,6 +782,23 @@ focus {outline:0;}
   outline: none;
   border-radius:25px; 
 
+}
+
+.subscribedButton{
+  background-color: rgba(206, 243, 225);
+  color: #0bc26a;
+  padding: 6px 26px;
+  border:none;
+  font-size:14px;
+  outline: none;
+  border-radius:25px; 
+
+}
+
+.subscribedButton:after{
+  /* font-weight: bold; */
+  content: '';
+  font-size:14px;
 }
 
 .addSubsBtn:after{
